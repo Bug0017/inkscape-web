@@ -1,21 +1,21 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GOOGLE_FONTS_URL } from "../../consts";
+import { createSlice } from "@reduxjs/toolkit";
+interface FontState {
+  name: string;
+}
 
-export const fontsApiSlice = createApi({
-  reducerPath: "fonts",
-  baseQuery: fetchBaseQuery({
-    baseUrl: GOOGLE_FONTS_URL,
-  }),
+const initialState: FontState = {
+  name: "",
+};
 
-  endpoints(builder) {
-    return {
-      fetchGoogleFonts: builder.query<void, void>({
-        query() {
-          return "";
-        },
-      }),
-    };
+const fontsSlice = createSlice({
+  name: "fonts",
+  initialState,
+  reducers: {
+    setFontName: (state, action) => {
+      state.name = action.payload;
+    },
   },
 });
 
-export const { useFetchGoogleFontsQuery } = fontsApiSlice;
+export const { setFontName } = fontsSlice.actions;
+export default fontsSlice.reducer;
